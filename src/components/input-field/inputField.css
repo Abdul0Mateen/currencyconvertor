@@ -1,0 +1,149 @@
+.inputFieldContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 0.3rem;
+  border: 0.1rem solid rgb(202, 202, 202);
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+.inputFieldContainer .amountInput {
+  padding: 0.3rem 0.3rem;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  /* border-right: 2px solid rgb(228, 228, 228); */
+  width: 50%;
+  color: rgb(124, 124, 124);
+  font-size: 1rem;
+}
+.borderContainer {
+  border-right: 0.1rem solid rgb(228, 228, 228);
+  height: 1.5rem;
+}
+
+.dropDownWrapper {
+  position: relative;
+  width: 50%;
+}
+.dropDownBtn {
+  position: relative;
+}
+.dropDownBtn button {
+  width: 100%;
+  border: none;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: rgb(124, 124, 124);
+  font-size: 1rem;
+}
+.dropDownBtn img {
+  width: 0.5rem;
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.dropDownMenu {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 1rem;
+  position: absolute;
+  z-index: 10;
+  background-color: white;
+  top: 46px;
+  left: 0;
+  max-height: 20rem;
+  overflow-y: scroll;
+  padding-top: 1rem;
+  width: 100%;
+}
+.searchBarWrapper {
+  position: relative;
+  padding: 0.2rem 0.6rem;
+}
+.searchBar {
+  border-radius: 0.3rem;
+  border: 0.1rem solid rgb(202, 202, 202);
+  outline: none;
+  padding: 0.3rem;
+  color: rgb(124, 124, 124);
+  font-size: 0.9rem;
+  width: 100%;
+}
+.searchBarWrapper img {
+  width: 0.7rem;
+  height: 0.7rem;
+  position: absolute;
+  top: 50%;
+  right: 1.2rem;
+  transform: translateY(-50%);
+}
+.dropDownMenu ul {
+  list-style: none;
+  padding: 0rem;
+}
+.dropDownMenu ul li {
+  font-family: inter;
+  padding: 0.2rem 1rem;
+  color: rgb(124, 124, 124);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.dropDownMenu ul li:hover {
+  background-color: rgba(214, 214, 214, 0.2);
+}
+.dropDownMenu::-webkit-scrollbar {
+  display: none;
+}
+.errorMessage {
+  padding: 0.2rem 0rem 0rem 1.4rem;
+}
+.errorMessage p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: red;
+}
+@media screen and (max-width: 991px) {
+  .dropDownMenu ul li {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .inputFieldContainer {
+    padding: 0.5rem 0.5rem;
+  }
+}
+@media screen and (max-width: 576px) {
+  .inputFieldContainer {
+    column-gap: 0.1rem;
+  }
+  .inputFieldContainer .amountInput {
+    padding: 0.3rem 0.1rem;
+
+    font-size: 0.8rem;
+  }
+
+  .dropDownBtn button {
+    font-size: 0.8rem;
+  }
+  .inputFieldContainer {
+    padding: 0.5rem 0.5rem;
+  }
+  .searchBarWrapper {
+    padding: 0.2rem 0.3rem;
+  }
+  .searchBar {
+    font-size: 0.7rem;
+  }
+  .dropDownMenu ul li {
+    padding: 0.1rem 0.3rem;
+  }
+  .dropDownMenu {
+    top: 38px;
+  }
+}
