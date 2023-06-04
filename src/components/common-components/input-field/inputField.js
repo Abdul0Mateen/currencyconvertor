@@ -43,7 +43,7 @@ export default function InputField({
   useEffect(() => {
     const getData = setTimeout(() => {
       getExchangeRate();
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(getData);
   }, [value]);
   // Getting all the exchange rate base on EURO

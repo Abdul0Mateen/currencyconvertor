@@ -29,7 +29,6 @@ export default function Home() {
       const convertedAmount = inputOne / exchangeRatio;
       const roundedAmount = Number(convertedAmount.toFixed(2));
       setFinalValueTwo(roundedAmount);
-      console.log(roundedAmount, "displayed input12");
       setFinalValueOne(inputOne);
     }
     if (inputTwo !== prevInputTwo.current) {
@@ -37,7 +36,6 @@ export default function Home() {
       const convertedAmount = inputTwo * exchangeRatio;
       const roundedAmount = Number(convertedAmount.toFixed(2));
       setFinalValueOne(roundedAmount);
-      console.log(inputTwo, "displayed input2");
       setFinalValueTwo(inputTwo);
       setInputOne(roundedAmount);
       prevInputOne.current = roundedAmount;
@@ -52,13 +50,10 @@ export default function Home() {
   }
   function valueOne(childValue) {
     setInputOne(childValue);
-    console.log(childValue, "input1 value");
   }
   function valueTwo(childValue) {
     setInputTwo(childValue);
-    console.log(childValue, "input2 value");
   }
-
   function handleModal(modalState) {
     setModalShow(modalState);
   }
