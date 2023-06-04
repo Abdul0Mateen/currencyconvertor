@@ -16,14 +16,16 @@ The Currency Converter is a web application that allows users to convert currenc
 ## Installation
 
 1. Clone the repository:
-   git clone https://github.com/your-username/currency-converter.git
+   git clone https://github.com/Abdul0Mateen/currencyconvertor.git
 2. Navigate to the project directory:
-   cd currency-converter
+   cd currencyconvertor
 3. Install the dependencies:
    npm install
 4. Create a .env file based on the provided .env.example file in the project folder. Fill in your Fixer.io API access key and base URL which will be provided after registration:
 5. Start the application:
-   npm start
+
+### ` npm start`
+
 6. Open [http://localhost:3000](http://localhost:3000) to view it in your browser. The page will reload when you make changes.\ You may also see any lint errors in the console.
 
 ## Usage
