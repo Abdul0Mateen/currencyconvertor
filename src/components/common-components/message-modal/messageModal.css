@@ -1,5 +1,5 @@
 .modal-header {
-  border: none;
+  border: none !important;
 }
 .modal-body {
   display: flex;

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./home.css";
 import InputField from "../common-components/input-field/inputField";
+import MessageModal from "../common-components/message-modal/messageModal";
 
 export default function Home() {
   const [inputOne, setInputOne] = useState();
@@ -9,21 +10,26 @@ export default function Home() {
   const [unitRateTwo, setUnitRateTwo] = useState();
   const [finalValueOne, setFinalValueOne] = useState();
   const [finalValueTwo, setFinalValueTwo] = useState();
+  const [modalShow, setModalShow] = useState(false);
   const prevInputOne = useRef("");
   const prevInputTwo = useRef("");
   const prevRateOne = useRef("");
   const prevRateTwo = useRef("");
   useEffect(() => {
     const exchangeRatio = unitRateOne / unitRateTwo;
+    console.log("input three");
+
     if (
       inputOne !== prevInputOne.current ||
       unitRateOne !== prevRateOne.current ||
       unitRateTwo !== prevRateTwo.current
     ) {
+      console.log("input one");
       handleChangeInputOne(exchangeRatio);
     }
     if (inputTwo !== prevInputTwo.current) {
       handleChangeInputTwo(exchangeRatio);
+      console.log("input Two");
     }
   }, [inputOne, unitRateOne, unitRateTwo, inputTwo]);
 
@@ -54,14 +60,15 @@ export default function Home() {
     const roundedAmount = Number(convertedAmount.toFixed(2));
     setFinalValueOne(roundedAmount);
     setFinalValueTwo(inputTwo);
-    setInputOne(roundedAmount);
+  }
+  function handleModal(modalState) {
+    setModalShow(modalState);
   }
   return (
     <div className="homeContainer">
       <div className="homeHeading">
         <h1>Currency Convertor</h1>
       </div>
-
       <div className="inputWrapper">
         <div className="inputContainer">
           <InputField
@@ -69,6 +76,7 @@ export default function Home() {
             handleValue={valueOne}
             handleExchange={unitExchangeRateOne}
             handleFinalValue={finalValueOne}
+            handleModal={handleModal}
           />
         </div>
         <div className="inputContainer">
@@ -76,9 +84,11 @@ export default function Home() {
             handleExchange={unitExchangeRateTwo}
             handleValue={valueTwo}
             handleFinalValue={finalValueTwo}
+            handleModal={handleModal}
           />
         </div>
       </div>
+      <MessageModal showModal={modalShow} />
     </div>
   );
 }
