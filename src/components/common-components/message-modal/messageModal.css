@@ -1,0 +1,20 @@
+.modal-header {
+  border: none;
+}
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 0.5rem;
+}
+.errorIconWrapper img {
+  width: 5rem;
+}
+.errorHeading h1 {
+  font-family: inter;
+  font-weight: 600;
+}
+.errorAction p {
+  font-family: inter;
+}

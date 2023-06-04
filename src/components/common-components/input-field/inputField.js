@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./inputField.css";
 import axios from "axios";
-import { apiBaseURL } from "../../assets/baseUrl";
-import { apiAccessKey } from "../../assets/accessKey";
-import dropIcon from "../../assets/images/down-filled-triangular-arrow.png";
-import upIcon from "../../assets/images/triangular-filled-up-arrow.png";
-import searchIcon from "../../assets/images/search-interface-symbol.png";
+import { apiBaseURL } from "../../../auth/baseUrl";
+import { apiAccessKey } from "../../../auth/accessKey";
+import dropIcon from "../../../assets/images/down-filled-triangular-arrow.png";
+import upIcon from "../../../assets/images/triangular-filled-up-arrow.png";
+import searchIcon from "../../../assets/images/search-interface-symbol.png";
+import MessageModal from "../message-modal/messageModal";
 
 export default function InputField({
   handleValue,
@@ -20,7 +21,8 @@ export default function InputField({
   const [filterData, setFilterData] = useState({});
   const [value, setValue] = useState("");
   const [error, setError] = useState(" ");
-  const [selectedCurrency, setSelectedCurrency] = useState();
+  const [selectedCurrency, setSelectedCurrency] = useState("");
+  const [modalShow, setModalShow] = useState(false);
   // Evoking the api function
   useEffect(() => {
     // getExchangeRate();
@@ -34,40 +36,57 @@ export default function InputField({
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  //Real-time exchange rate from api
+  useEffect(() => {
+    const getData = setTimeout(() => {
+      // getExchangeRate();
+    }, 2000);
+    return () => clearTimeout(getData);
+  }, [value]);
   // Getting all the exchange rate base on EURO
-  function getExchangeRate() {
-    axios
-      .get(`${apiBaseURL}latest?access_key=${apiAccessKey}`)
-      .then((response) => {
-        setExchangeRate(response.data.rates);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  async function getExchangeRate() {
+    try {
+      const apiResponse = await axios.get(
+        `${apiBaseURL}latest?access_key=${apiAccessKey}`
+      );
+      if (apiResponse.data.success) {
+        setExchangeRate(apiResponse.data.rates);
+      } else {
+        setModalShow(true);
+      }
+    } catch (error) {
+      setModalShow(true);
+      console.log(error);
+    }
   }
   // Getting all the currencies and symbols
-  function getCurrency() {
-    axios
-      .get(`${apiBaseURL}symbols?access_key=${apiAccessKey}`)
-      .then((response) => {
-        setCurrencySymbol(response.data.symbols);
-        setFilterData(response.data.symbols);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  async function getCurrency() {
+    try {
+      const apiResponse = await axios.get(
+        `${apiBaseURL}symbols?access_key=${apiAccessKey}`
+      );
+      if (apiResponse.data.success) {
+        setCurrencySymbol(apiResponse.data.symbols);
+        setFilterData(apiResponse.data.symbols);
+        setModalShow(false);
+      } else {
+        setModalShow(true);
+      }
+    } catch (error) {
+      setModalShow(true);
+      console.log(error);
+    }
   }
   // handling currency selected by user
-  function handleCurrencySelect(value) {
-    setSelectedCurrency(value);
+  function handleCurrencySelect(selectedSymbol) {
+    setSelectedCurrency(selectedSymbol);
     setOpenMenu(false);
     setFilterData(currencySymbol);
-    handleExchange(exchangeRate[value]);
+    handleExchange(exchangeRate[selectedSymbol]);
   }
   // handling amount to be converted entered by user
   function handleInputChange(e) {
@@ -103,7 +122,7 @@ export default function InputField({
           autoFocus={defaultFocus}
           className="amountInput"
           placeholder="Enter value"
-          value={handleFinalValue ? handleFinalValue : value}
+          value={handleFinalValue >= 0 ? handleFinalValue : value}
           onChange={handleInputChange}
         />
         <div className="borderContainer"></div>
@@ -130,7 +149,15 @@ export default function InputField({
               </div>
               <ul>
                 {Object.entries(filterData).map(([key, value], index) => (
-                  <li key={index} onClick={() => handleCurrencySelect(key)}>
+                  <li
+                    style={
+                      selectedCurrency === key
+                        ? { backgroundColor: "#005cff26" }
+                        : {}
+                    }
+                    key={index}
+                    onClick={() => handleCurrencySelect(key)}
+                  >
                     {key}: {value}
                   </li>
                 ))}
@@ -142,6 +169,7 @@ export default function InputField({
       <div className="errorMessage">
         <p>{error}</p>
       </div>
+      <MessageModal showModal={modalShow} />
     </div>
   );
 }

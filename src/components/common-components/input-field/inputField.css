@@ -99,6 +99,9 @@
 .dropDownMenu::-webkit-scrollbar {
   display: none;
 }
+.activeCurrency {
+  background-color: yellow;
+}
 .errorMessage {
   padding: 0.2rem 0rem 0rem 1.4rem;
 }
