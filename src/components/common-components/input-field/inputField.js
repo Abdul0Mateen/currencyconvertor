@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./inputField.css";
 import axios from "axios";
-import { apiBaseURL } from "../../../auth/baseUrl";
-import { apiAccessKey } from "../../../auth/accessKey";
 import dropIcon from "../../../assets/images/down-filled-triangular-arrow.png";
 import upIcon from "../../../assets/images/triangular-filled-up-arrow.png";
 import searchIcon from "../../../assets/images/search-interface-symbol.png";
@@ -14,6 +12,8 @@ export default function InputField({
   defaultFocus,
   handleModal,
 }) {
+  const apiBaseURL = process.env.REACT_APP_BASE_URL;
+  const apiAccessKey = process.env.REACT_APP_API_ACCESS_KEY;
   const dropRef = useRef(null);
   const [currencySymbol, setCurrencySymbol] = useState({});
   const [exchangeRate, setExchangeRate] = useState({});
