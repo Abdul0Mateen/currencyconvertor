@@ -15,21 +15,32 @@ export default function Home() {
   const prevInputTwo = useRef("");
   const prevRateOne = useRef("");
   const prevRateTwo = useRef("");
+
   useEffect(() => {
     const exchangeRatio = unitRateOne / unitRateTwo;
-    console.log("input three");
-
     if (
       inputOne !== prevInputOne.current ||
       unitRateOne !== prevRateOne.current ||
       unitRateTwo !== prevRateTwo.current
     ) {
-      console.log("input one");
-      handleChangeInputOne(exchangeRatio);
+      prevInputOne.current = inputOne;
+      prevRateOne.current = unitRateOne;
+      prevRateTwo.current = unitRateTwo;
+      const convertedAmount = inputOne / exchangeRatio;
+      const roundedAmount = Number(convertedAmount.toFixed(2));
+      setFinalValueTwo(roundedAmount);
+      console.log(roundedAmount, "displayed input12");
+      setFinalValueOne(inputOne);
     }
     if (inputTwo !== prevInputTwo.current) {
-      handleChangeInputTwo(exchangeRatio);
-      console.log("input Two");
+      prevInputTwo.current = inputTwo;
+      const convertedAmount = inputTwo * exchangeRatio;
+      const roundedAmount = Number(convertedAmount.toFixed(2));
+      setFinalValueOne(roundedAmount);
+      console.log(inputTwo, "displayed input2");
+      setFinalValueTwo(inputTwo);
+      setInputOne(roundedAmount);
+      prevInputOne.current = roundedAmount;
     }
   }, [inputOne, unitRateOne, unitRateTwo, inputTwo]);
 
@@ -41,26 +52,13 @@ export default function Home() {
   }
   function valueOne(childValue) {
     setInputOne(childValue);
+    console.log(childValue, "input1 value");
   }
   function valueTwo(childValue) {
     setInputTwo(childValue);
+    console.log(childValue, "input2 value");
   }
-  function handleChangeInputOne(exchangeRatio) {
-    prevInputOne.current = inputOne;
-    prevRateOne.current = unitRateOne;
-    prevRateTwo.current = unitRateTwo;
-    const convertedAmount = inputOne / exchangeRatio;
-    const roundedAmount = Number(convertedAmount.toFixed(2));
-    setFinalValueTwo(roundedAmount);
-    setFinalValueOne(inputOne);
-  }
-  function handleChangeInputTwo(exchangeRatio) {
-    prevInputTwo.current = inputTwo;
-    const convertedAmount = inputTwo * exchangeRatio;
-    const roundedAmount = Number(convertedAmount.toFixed(2));
-    setFinalValueOne(roundedAmount);
-    setFinalValueTwo(inputTwo);
-  }
+
   function handleModal(modalState) {
     setModalShow(modalState);
   }

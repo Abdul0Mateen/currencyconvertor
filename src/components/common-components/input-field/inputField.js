@@ -17,18 +17,18 @@ export default function InputField({
   handleModal,
 }) {
   const dropRef = useRef(null);
-  // const [currencySymbol, setCurrencySymbol] = useState({});
-  // const [exchangeRate, setExchangeRate] = useState({});
+  const [currencySymbol, setCurrencySymbol] = useState({});
+  const [exchangeRate, setExchangeRate] = useState({});
   const [openMenu, setOpenMenu] = useState(false);
   const [filterData, setFilterData] = useState(currencySymbol);
   const [value, setValue] = useState("");
   const [error, setError] = useState(" ");
   const [selectedCurrency, setSelectedCurrency] = useState("");
   // Evoking the api function
-  // useEffect(() => {
-  //   getExchangeRate();
-  //   getCurrency();
-  // }, []);
+  useEffect(() => {
+    getExchangeRate();
+    getCurrency();
+  }, []);
   // handling outside clicking to close the currency dropdown
   useEffect(() => {
     function handleClickOutside(event) {
@@ -44,45 +44,45 @@ export default function InputField({
   //Real-time exchange rate from api
   useEffect(() => {
     const getData = setTimeout(() => {
-      // getExchangeRate();
+      getExchangeRate();
     }, 2000);
     return () => clearTimeout(getData);
   }, [value]);
   // Getting all the exchange rate base on EURO
-  // async function getExchangeRate() {
-  //   try {
-  //     const apiResponse = await axios.get(
-  //       `${apiBaseURL}latest?access_key=${apiAccessKey}`
-  //     );
-  //     if (apiResponse.data.success) {
-  //       setExchangeRate(apiResponse.data.rates);
-  //       handleModal(false);
-  //     } else {
-  //       handleModal(true);
-  //     }
-  //   } catch (error) {
-  //     handleModal(true);
-  //     console.log(error);
-  //   }
-  // }
+  async function getExchangeRate() {
+    try {
+      const apiResponse = await axios.get(
+        `${apiBaseURL}latest?access_key=${apiAccessKey}`
+      );
+      if (apiResponse.data.success) {
+        setExchangeRate(apiResponse.data.rates);
+        handleModal(false);
+      } else {
+        handleModal(true);
+      }
+    } catch (error) {
+      handleModal(true);
+      console.log(error);
+    }
+  }
   // Getting all the currencies and symbols
-  // async function getCurrency() {
-  //   try {
-  //     const apiResponse = await axios.get(
-  //       `${apiBaseURL}symbols?access_key=${apiAccessKey}`
-  //     );
-  //     if (apiResponse.data.success) {
-  //       setCurrencySymbol(apiResponse.data.symbols);
-  //       setFilterData(apiResponse.data.symbols);
-  //       handleModal(false);
-  //     } else {
-  //       handleModal(true);
-  //     }
-  //   } catch (error) {
-  //     handleModal(true);
-  //     console.log(error);
-  //   }
-  // }
+  async function getCurrency() {
+    try {
+      const apiResponse = await axios.get(
+        `${apiBaseURL}symbols?access_key=${apiAccessKey}`
+      );
+      if (apiResponse.data.success) {
+        setCurrencySymbol(apiResponse.data.symbols);
+        setFilterData(apiResponse.data.symbols);
+        handleModal(false);
+      } else {
+        handleModal(true);
+      }
+    } catch (error) {
+      handleModal(true);
+      console.log(error);
+    }
+  }
   // handling currency selected by user
   function handleCurrencySelect(selectedSymbol) {
     setSelectedCurrency(selectedSymbol);
