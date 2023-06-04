@@ -6,8 +6,6 @@ import { apiAccessKey } from "../../../auth/accessKey";
 import dropIcon from "../../../assets/images/down-filled-triangular-arrow.png";
 import upIcon from "../../../assets/images/triangular-filled-up-arrow.png";
 import searchIcon from "../../../assets/images/search-interface-symbol.png";
-import { exchangeRate } from "../../../assets/exchangeRate";
-import { currencySymbol } from "../../../assets/symbolsData";
 
 export default function InputField({
   handleValue,
